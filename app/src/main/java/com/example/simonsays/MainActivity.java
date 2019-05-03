@@ -31,9 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int actScore;
     private int highScore;
 
-    // constructor
     public MainActivity() {
-        // initial value of isGameStarted
         this.setIsGameStarted(false);
     }
 
@@ -55,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startGame();
     }
 
-    // overwrite onClick method
     @Override
     public void onClick(View view) {
         clickedBtn = (Button)view;
@@ -90,12 +87,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    // overwrite onPause to stop music, if activity_main is in the background
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
     public void fillBtnArray() {
         btnArray = new Button[4];
         btnArray[0] = findViewById(R.id.redBtn);
@@ -104,14 +95,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnArray[3] = findViewById(R.id.yellowBtn);
     }
 
-    // each button gets an OnClickListener
     public void btnSetOnClickListener() {
         for(int i = 0; i < btnArray.length; i++) {
             btnArray[i].setOnClickListener(this);
         }
     }
 
-    // each button gets an OnTouchListener
     @SuppressLint("ClickableViewAccessibility")
     public void btnSetOnTouchListener() {
         for(int i = 0; i < btnArray.length; i++) {
@@ -138,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    // configurations of animation
     public void configureAnimation() {
         ObjectAnimator animation = ObjectAnimator.ofFloat(btnArray[this.getRandom()], "alpha", 0.3f);
         animation.setRepeatCount(1);
@@ -147,14 +135,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         animList.add(animation);
     }
 
-    // show message of toast at a specific position
     public  void showToast() {
         Toast toast = Toast.makeText(this, "Press Start", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER | Gravity.TOP, 0, 50);
         toast.show();
     }
 
-    // game is starting by clicking the start button
     public void startGame() {
         Button start = findViewById(R.id.startBtn);
         start.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +154,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    // animate buttons with AnimatorSet to play animation sequentially
     public void animateBtn() {
         this.setRandom(rand.nextInt(4));
         configureAnimation();
@@ -218,16 +203,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gameInfo.setText(String.format("%s %s", "Your Best", String.valueOf(this.getHighScore())));
     }
 
-    // if clicked button is incorrect, game will be reset
     public void resetGame() {
         this.setCounter(0);
         this.setRound(0);
         this.setActScore(0);
         this.setIsGameStarted(false);
-        animList.clear(); // there is no animation in animList anymore
+        animList.clear();
     }
 
-    // set and get methods (data encapsulation)
     public void setIsGameStarted(boolean isGameStarted) {
         this.isGameStarted = isGameStarted;
     }
